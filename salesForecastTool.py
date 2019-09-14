@@ -284,7 +284,7 @@ if response == 2:
         increase))) / df4['size']
 
   # filename for final report
-  finalDraft = "holiday_forecast_{}_{}.xlsx".format(d0, d12)
+  finalDraft = "forecast_{}_{}.xlsx".format(d0, d12)
 
   # reorganize columns on sheet
   df4 = df4[["section", "product", "price", "sku", "size", d0, d1, d2, d3, d4,
@@ -356,7 +356,6 @@ if response == 2:
           'J%s', 'K%s', 'L%s', 'M%s', 'N%s', 'O%s', 'P%s', 'Q%s',
           'R%s', 'S%s']
 
-
   # function to create borders around active cells in sheet
   def border_cell1(sheet, rows, column):
     for x in range(1, rows):
@@ -378,8 +377,10 @@ if response == 2:
     wrkSheet[cell] = c[5:10]
 
   # set print parameters
+  dateS = str(d0)[5:]
+  dateE = str(d12)[5:]
   wrkSheet.print_title_rows = '1:1'
-  wrkSheet.oddHeader.center.text = 'section from %s to %s' % (d0, d12)
+  wrkSheet.oddHeader.center.text = '454 forecast from %s to %s' % (dateS, dateE)
   wrkSheet.oddFooter.center.text = 'A {} increase has been added to all ' \
                                    ' sales in this time period to reflect ' \
                                    'expected sales growth.'.format(percentInc)
