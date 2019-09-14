@@ -13,7 +13,7 @@
 import pandas as pd
 import openpyxl
 import datetime
-from openpyxl.styles import NamedStyle, Border, Side, Font, Color
+from openpyxl.styles import Border, Side
 
 
 ################################################################################
@@ -73,15 +73,24 @@ def decInput():
 ################################################################################
 # Start message and input request
 ################################################################################
-response = int(input('\nwelcome! Please select from the following options \n'
-                     '[1] Clean data and address errors \n'
-                     '[2] Generate report\n'))
+response = int(input
+               ('\nSALES FORECASTING TOOL \n'
+                '\nThis tool creates a report from your history store order '
+                '\nguide. Start with STEP 1. Once this step is completed, '
+                '\na .xls called holidayformatted will be created. Open this '
+                '\nfile and make sure that there are no empty cells or cells '
+                '\nwith more than one value. It is rare for there to be no '
+                '\nerrors. You will most likely find them in bananas, tomatoes '
+                '\nand spinach. Once you have fixed errors, save the file and '
+                '\nrun STEP 2 to create a report.\n'
+                '\n[1] Fix errors'
+                '\n[2] Generate report\n \n-->'))
 
 ################################################################################
 # Clean data and find errors (option 1)
 ################################################################################
 if response == 1:
-  print('PROCESS INITIATED')  # -----------------------------------------------
+  print('PROCESS INITIATED')  # ------------------------------------------------
   file = "hol_hsog.xlsx"
   file2 = "holiday_formatted.xlsx"
   wb = openpyxl.load_workbook(file)
@@ -346,6 +355,7 @@ if response == 2:
   cols = ['A%s', 'B%s', 'C%s', 'D%s', 'E%s', 'F%s', 'G%s', 'H%s', 'I%s',
           'J%s', 'K%s', 'L%s', 'M%s', 'N%s', 'O%s', 'P%s', 'Q%s',
           'R%s', 'S%s']
+
 
   # function to create borders around active cells in sheet
   def border_cell1(sheet, rows, column):
