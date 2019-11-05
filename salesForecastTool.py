@@ -15,7 +15,6 @@ import openpyxl
 import datetime
 from openpyxl.styles import Border, Side
 
-
 ################################################################################
 # Functions used to clean and organize data (option 1)
 ################################################################################
