@@ -26,7 +26,6 @@ def copyColumn(sheet, col1, col2):
     c = col2 % x
     sheet[c] = b
 
-
 # copy data from one column to another, moving the cells up one index position
 def moveOneUp(sheet, col1, col2):
   for x in range(1, rows):
@@ -36,7 +35,6 @@ def moveOneUp(sheet, col1, col2):
     c = col2 % x
     sheet[c] = b
 
-
 # copy data from one column to another, moving the cells up two index positions
 def moveTwoUp(sheet, col1, col2):
   for x in range(1, rows):
@@ -45,7 +43,6 @@ def moveTwoUp(sheet, col1, col2):
     b = sheet[a].value
     c = col2 % x
     sheet[c] = b
-
 
 ################################################################################
 # Function to retrieve and fill report date range
@@ -58,7 +55,6 @@ def report_date(sheet, col1):
     if 'From' in c:
       return datetime.datetime.strptime(c[-10:], "%m/%d/%Y").date() \
              + datetime.timedelta(days=1)
-
 
 def decInput():
   while True:
@@ -361,7 +357,6 @@ if response == 2:
       a = column % x
       c = sheet[a]
       c.border = Border(left=bd, top=bd, right=bd, bottom=bd)
-
 
   # call function for all cells in all columns
   for cell in cols:
