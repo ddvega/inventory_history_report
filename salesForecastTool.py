@@ -198,7 +198,7 @@ if response == 1:
   df0 = df0[df0['b'].str.len().gt(4)]
 
   # filter out all rows in column F that are not greater than or equal to 0
-  df0 = df0[df0['f'] >= 0]
+  #df0 = df0[df0['f'].gt(0)]
 
   print("step 10 of {} complete".format(end))  # -------------------------------
 
