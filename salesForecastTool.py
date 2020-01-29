@@ -30,11 +30,13 @@ response = int(input
                 '\nand spinach. Once you have fixed errors, save the file and '
                 '\nrun STEP 2 to create a report.\n'
                 '\n[1] Fix errors'
-                '\n[2] Generate report\n \n-->'))
+                '\n[2] Generate report'
+                '\n[3] Exit'
+                '\n-->'))
 
 if response == 1:
     cleanData()
 elif response == 2:
     makeReport()
 else:
-    print("Not an option goodbye.")
+    print("Have a great day :)")
