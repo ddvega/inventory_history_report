@@ -5,18 +5,14 @@ from source.functs import *
 
 
 def makeReport():
-
     increase = decInput()  # projected sales increase for current year
-    percentInc = str(round(increase * 100)) + \
-        '%'  # to show percentage in footer
+    percentInc = str(round(increase * 100)) + '%'  # show % in footer
 
-    # ------------------------------------------------
     print('PROCESS INITIATED')
 
     file = "xlsxFiles/hol_hsog.xlsx"
     wb = openpyxl.load_workbook(file)
     ws = wb.active
-    rows_one = ws.max_row
     end = 9  # number of steps to complete
 
     # names of all the sections in the store
@@ -24,7 +20,6 @@ def makeReport():
                 'cookie.candy', 'deli', 'cheese', 'fresh', 'cereal', 'meat',
                 'wine', 'dfn', 'flowers', 'bakery']
 
-    # --------------------------------
     print("step 1 of {} complete".format(end))
 
     # get report start date and fill cells on first row
@@ -43,23 +38,21 @@ def makeReport():
     d11 = d0 + datetime.timedelta(days=11)
     d12 = d0 + datetime.timedelta(days=12)
 
-    # --------------------------------
     print("step 2 of {} complete".format(end))
 
     df0 = pd.read_excel("xlsxFiles/holiday_formatted.xlsx", header=None)
     df1 = pd.read_excel("xlsxFiles/sectNames.xlsx", header=None)
-    df0.columns = ["product", "sku", "price", d0, d1, d2, d3, d4, d5, d6, d7, d8,
+    df0.columns = ["product", "sku", "price", d0, d1, d2, d3, d4, d5, d6, d7,
+                   d8,
                    d9, d10, d11, d12]  # header for df0
     df1.columns = ["section", "sku"]  # header for df1
     df0['product'] = df0['product'].str.strip()
 
-    # --------------------------------
     print("step 3 of {} complete".format(end))
 
     df2 = pd.read_excel("xlsxFiles/caseCounts.xlsx", header=None)
     df2.columns = ["sku", "size"]
 
-    # --------------------------------
     print("step 4 of {} complete".format(end))
 
     df3 = pd.merge(df0, df1, how='left', on='sku')
@@ -68,15 +61,15 @@ def makeReport():
                d4, d5, d6, d7, d8, d9, d10, d11, d12]]
     df4['size'].fillna(1, inplace=True)  # fill NaN cells in column SIZE with 1
 
-    # --------------------------------
     print("step 5 of {} complete".format(end))
 
     # convert all cells to floats
     dayColumns = [d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12]
     for col in df4:
         if col in dayColumns:
-            df4[col] = (df4[col].astype(float) + (df4[col].astype(float) * float(
-                increase))) / df4['size']
+            df4[col] = (df4[col].astype(float) +
+                        (df4[col].astype(float) * float(increase))) / df4[
+                           'size']
 
     # filename for final report
     finalDraft = "completed/forecast_{}_{}.xlsx".format(d0, d12)
@@ -87,10 +80,10 @@ def makeReport():
     row_count = len(df4) + 1  # get the number of rows in df4
     writer = pd.ExcelWriter(finalDraft, engine='xlsxwriter')
     sheetName = 'details'
+
     # print dataframe to excel sheet
     df4.to_excel(writer, sheet_name=sheetName)
 
-    # --------------------------------
     print("step 6 of {} complete".format(end))
 
     # create a totals sheet with the sum off all day columns
@@ -143,7 +136,6 @@ def makeReport():
     # save both sheets to workbook
     writer.save()
 
-    # --------------------------------
     print("step 8 of {} complete".format(end))
 
     # open workbook to further make styling updates to sheet 0 (detailed)
@@ -182,12 +174,10 @@ def makeReport():
         dateS, dateE)
     wrkSheet.oddFooter.center.text = 'A {} increase has been added to all ' \
                                      ' sales in this time period to reflect ' \
-                                     'expected sales growth.'.format(
-                                         percentInc)
-    # -------------------------------
+                                     'expected sales growth.'.format(percentInc)
+
     print("step 9 of {} complete".format(end))
 
     wrkBook.save(finalDraft)
 
-    # -------------------------------------------------
     print('PROCESS COMPLETE')

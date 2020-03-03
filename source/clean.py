@@ -4,9 +4,8 @@ from source.functs import *
 
 '''  Clean data and find errors (option 1) '''
 
+
 def cleanData():
-    # if response == 1:
-    # ------------------------------------------------
     print('PROCESS INITIATED')
     file = "xlsxFiles/hol_hsog.xlsx"
     file2 = "xlsxFiles/holiday_formatted.xlsx"
@@ -18,7 +17,6 @@ def cleanData():
 
     copyColumn(rows, ws, 'A%s', 'U%s')  # copy contents of column A to column U
 
-    # --------------------------------
     print("step 2 of {} complete".format(end))
 
     # fill the SKU column. Fill empty cells with 0
@@ -33,7 +31,6 @@ def cleanData():
         else:
             ws[d] = c[:6]  # trim the data to 6 characters
 
-    # --------------------------------
     print("step 3 of {} complete".format(end))
 
     moveOneUp(rows, ws, 'U%s', 'W%s')
@@ -51,7 +48,6 @@ def cleanData():
     moveTwoUp(rows, ws, 'P%s', 'AI%s')
     moveTwoUp(rows, ws, 'Q%s', 'AJ%s')
 
-    # --------------------------------
     print("step 4 of {} complete".format(end))
 
     # fill empty cells in the same column
@@ -64,7 +60,6 @@ def cleanData():
         if d is None or d == '':
             ws[b] = c
 
-    # --------------------------------
     print("step 5 of {} complete".format(end))
 
     # remove empty space in every cell in column T
@@ -75,12 +70,10 @@ def cleanData():
         if len(c) == 6:
             ws[a] = b[1:]
 
-    # --------------------------------
     print("step 6 of {} complete".format(end))
 
     copyColumn(rows, ws, 'T%s', 'V%s')  # copy column T to column V
 
-    # --------------------------------
     print("step 7 of {} complete".format(end))
 
     # remove first 5 spaces in every cell in column W with a length of 9
@@ -91,7 +84,6 @@ def cleanData():
         if len(c) == 9:
             ws[a] = c[5:]
 
-    # --------------------------------
     print("step 8 of {} complete".format(end))
 
     # convert the cell contents of column W to floats
@@ -104,7 +96,6 @@ def cleanData():
         elif len(c) in [1, 2, 3, 4, 5]:
             ws[a] = float(b)
 
-    # --------------------------------
     print("step 9 of {} complete".format(end))
 
     wb.save(file2)
@@ -128,12 +119,10 @@ def cleanData():
     # filter out all rows in column B that are not greater than 4
     df0 = df0[df0['b'].str.len().gt(4)]
 
-    # -------------------------------
     print("step 10 of {} complete".format(end))
 
     writer = pd.ExcelWriter(file2, engine='xlsxwriter')
     df0.to_excel(writer, sheet_name="sheet")
     writer.save()
 
-    # -------------------------------------------------
     print('PROCESS COMPLETE')
